@@ -1,17 +1,27 @@
-import React, { useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import MainLayout from '@/layouts/MainLayout';
-import BlogCard from '@/components/BlogCard';
-import { blogPosts } from '@/data';
-import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Link2, ChevronRight } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useEffect, useRef } from "react";
+import { useParams, Link } from "react-router-dom";
+import MainLayout from "@/layouts/MainLayout";
+import BlogCard from "@/components/BlogCard";
+import { blogPosts } from "@/data";
+import {
+  Calendar,
+  Clock,
+  ArrowLeft,
+  Share2,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Link2,
+  ChevronRight,
+} from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SocialShareButton: React.FC<{ 
-  icon: React.ReactNode; 
-  label: string; 
+const SocialShareButton: React.FC<{
+  icon: React.ReactNode;
+  label: string;
   onClick: () => void;
   color: string;
 }> = ({ icon, label, onClick, color }) => (
@@ -41,15 +51,17 @@ const BlogDetails: React.FC = () => {
     // Hero animation
     if (heroRef.current) {
       gsap.fromTo(
-        heroRef.current.querySelectorAll('.hero-animate'),
+        heroRef.current.querySelectorAll(".hero-animate"),
         { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' }
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power3.out" }
       );
     }
 
     // Content reveal animation
     if (contentRef.current) {
-      const paragraphs = contentRef.current.querySelectorAll('p, h2, h3, blockquote, ul, ol');
+      const paragraphs = contentRef.current.querySelectorAll(
+        "p, h2, h3, blockquote, ul, ol"
+      );
       gsap.fromTo(
         paragraphs,
         { opacity: 0, y: 30 },
@@ -58,10 +70,10 @@ const BlogDetails: React.FC = () => {
           y: 0,
           duration: 0.6,
           stagger: 0.1,
-          ease: 'power2.out',
+          ease: "power2.out",
           scrollTrigger: {
             trigger: contentRef.current,
-            start: 'top 80%',
+            start: "top 80%",
           },
         }
       );
@@ -70,20 +82,26 @@ const BlogDetails: React.FC = () => {
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
-    const title = post?.title || '';
-    
+    const title = post?.title || "";
+
     const shareUrls: Record<string, string> = {
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
-      linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        url
+      )}`,
+      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+        url
+      )}&text=${encodeURIComponent(title)}`,
+      linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+        url
+      )}&title=${encodeURIComponent(title)}`,
       copy: url,
     };
 
-    if (platform === 'copy') {
+    if (platform === "copy") {
       navigator.clipboard.writeText(url);
       // Could add a toast notification here
     } else {
-      window.open(shareUrls[platform], '_blank', 'noopener,noreferrer');
+      window.open(shareUrls[platform], "_blank", "noopener,noreferrer");
     }
   };
 
@@ -93,7 +111,9 @@ const BlogDetails: React.FC = () => {
         <section className="section-padding min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-headline mb-4">Article Not Found</h1>
-            <p className="text-muted-foreground mb-8">The article you're looking for doesn't exist.</p>
+            <p className="text-muted-foreground mb-8">
+              The article you're looking for doesn't exist.
+            </p>
             <Link to="/blog" className="btn-hero">
               Back to Blog
             </Link>
@@ -149,56 +169,73 @@ const BlogDetails: React.FC = () => {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section ref={heroRef} className="relative h-[70vh] min-h-[500px] flex items-end">
+      <section
+        ref={heroRef}
+        className="relative h-[70vh] min-h-[500px] flex items-end"
+      >
         <div className="absolute inset-0">
-          <img 
-            src={post.image} 
-            alt={post.title} 
+          <img
+            src={post.image}
+            alt={post.title}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
         </div>
-        
+
         <div className="container-custom relative z-10 pb-12">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm mb-6 hero-animate">
-            <Link to="/" className="text-muted-foreground hover:text-accent transition-colors">Home</Link>
-            <ChevronRight size={14} className="text-muted-foreground" />
-            <Link to="/blog" className="text-muted-foreground hover:text-accent transition-colors">Blog</Link>
-            <ChevronRight size={14} className="text-muted-foreground" />
-            <span className="text-foreground">{post.category}</span>
+          <nav className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest mb-8 hero-animate opacity-60">
+            <Link to="/" className="hover:text-accent transition-colors">
+              Home
+            </Link>
+            <ChevronRight size={12} className="text-accent" />
+            <Link to="/blog" className="hover:text-accent transition-colors">
+              Blog
+            </Link>
+            <ChevronRight size={12} className="text-accent" />
+            <span className="text-foreground">
+              {post.category.toUpperCase()}
+            </span>
           </nav>
 
-          <span className="badge-accent mb-4 inline-block hero-animate">{post.category}</span>
-          
-          <h1 className="text-display text-foreground mb-6 max-w-4xl hero-animate">
+          <span className="badge-accent mb-6 inline-block font-bold px-4 py-1.5 text-[10px] uppercase tracking-widest border border-accent/20 hero-animate">
+            {post.category}
+          </span>
+
+          <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground mb-8 max-w-5xl hero-animate uppercase tracking-tight leading-tight">
             {post.title}
           </h1>
-          
-          <div className="flex flex-wrap items-center gap-6 text-muted-foreground hero-animate">
-            <div className="flex items-center gap-3">
-              <img 
-                src={post.author.avatar} 
+
+          <div className="flex flex-wrap items-center gap-10 text-muted-foreground hero-animate">
+            <div className="flex items-center gap-4">
+              <img
+                src={post.author.avatar}
                 alt={post.author.name}
-                className="w-12 h-12 rounded-full object-cover border-2 border-accent"
+                className="w-14 h-14 rounded-full object-cover border-4 border-accent/20"
               />
               <div>
-                <p className="font-medium text-foreground">{post.author.name}</p>
-                <p className="text-sm">{post.author.role}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-foreground">
+                  {post.author.name}
+                </p>
+                <p className="text-[10px] font-medium text-accent uppercase tracking-widest">
+                  {post.author.role}
+                </p>
               </div>
             </div>
-            
-            <div className="flex items-center gap-2">
-              <Calendar size={18} />
-              <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { 
-                month: 'long', 
-                day: 'numeric', 
-                year: 'numeric' 
-              })}</span>
+
+            <div className="flex items-center gap-3 font-bold text-[10px] uppercase tracking-widest">
+              <Calendar size={14} className="text-accent" />
+              <span>
+                {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </span>
             </div>
-            
-            <div className="flex items-center gap-2">
-              <Clock size={18} />
+
+            <div className="flex items-center gap-3 font-bold text-[10px] uppercase tracking-widest">
+              <Clock size={14} className="text-accent" />
               <span>{post.readTime} min read</span>
             </div>
           </div>
@@ -206,12 +243,12 @@ const BlogDetails: React.FC = () => {
       </section>
 
       {/* Content Section */}
-      <article className="section-padding bg-background">
+      <article className="section-padding bg-background w-full">
         <div className="container-custom">
           <div className="grid lg:grid-cols-12 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-8">
-              <div 
+              <div
                 ref={contentRef}
                 className="prose prose-lg max-w-none"
                 dangerouslySetInnerHTML={{ __html: fullContent }}
@@ -219,10 +256,12 @@ const BlogDetails: React.FC = () => {
 
               {/* Tags */}
               <div className="mt-12 pt-8 border-t border-border">
-                <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Tags</h3>
+                <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">
+                  Tags
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <span 
+                    <span
                       key={tag}
                       className="px-4 py-2 bg-secondary text-secondary-foreground rounded-full text-sm font-medium hover:bg-accent/10 transition-colors cursor-pointer"
                     >
@@ -242,44 +281,50 @@ const BlogDetails: React.FC = () => {
                   <SocialShareButton
                     icon={<Facebook size={18} />}
                     label="Facebook"
-                    onClick={() => handleShare('facebook')}
+                    onClick={() => handleShare("facebook")}
                     color="bg-[#1877F2] text-white hover:bg-[#1877F2]/90"
                   />
                   <SocialShareButton
                     icon={<Twitter size={18} />}
                     label="Twitter"
-                    onClick={() => handleShare('twitter')}
+                    onClick={() => handleShare("twitter")}
                     color="bg-[#1DA1F2] text-white hover:bg-[#1DA1F2]/90"
                   />
                   <SocialShareButton
                     icon={<Linkedin size={18} />}
                     label="LinkedIn"
-                    onClick={() => handleShare('linkedin')}
+                    onClick={() => handleShare("linkedin")}
                     color="bg-[#0A66C2] text-white hover:bg-[#0A66C2]/90"
                   />
                   <SocialShareButton
                     icon={<Link2 size={18} />}
                     label="Copy Link"
-                    onClick={() => handleShare('copy')}
+                    onClick={() => handleShare("copy")}
                     color="bg-secondary text-secondary-foreground hover:bg-accent/20"
                   />
                 </div>
               </div>
 
               {/* Author Card */}
-              <div className="mt-12 p-8 bg-card rounded-2xl border border-border">
-                <div className="flex flex-col sm:flex-row items-start gap-6">
-                  <img 
-                    src={post.author.avatar} 
+              <div className="mt-16 p-10 bg-secondary/50 rounded-3xl border border-border/50 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-full transition-transform duration-700 group-hover:scale-150" />
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 relative z-10">
+                  <img
+                    src={post.author.avatar}
                     alt={post.author.name}
-                    className="w-20 h-20 rounded-full object-cover border-2 border-accent"
+                    className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl"
                   />
-                  <div>
-                    <p className="text-sm text-muted-foreground uppercase tracking-wide mb-1">Written by</p>
-                    <h3 className="text-xl font-display font-semibold mb-2">{post.author.name}</h3>
-                    <p className="text-muted-foreground mb-4">{post.author.role}</p>
-                    <p className="text-muted-foreground">
-                      A passionate travel writer dedicated to uncovering hidden gems and sharing authentic experiences with fellow explorers around the world.
+                  <div className="text-center sm:text-left">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent mb-2">
+                      Written by
+                    </p>
+                    <h3 className="text-2xl font-display font-bold uppercase tracking-tight mb-3">
+                      {post.author.name}
+                    </h3>
+                    <p className="text-muted-foreground font-medium text-lg leading-relaxed">
+                      A passionate travel writer dedicated to uncovering hidden
+                      gems and sharing authentic experiences with fellow
+                      explorers around the world.
                     </p>
                   </div>
                 </div>
@@ -290,36 +335,55 @@ const BlogDetails: React.FC = () => {
             <aside className="lg:col-span-4">
               <div className="sticky top-24 space-y-8">
                 {/* Back to Blog */}
-                <Link 
+                <Link
                   to="/blog"
                   className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors group"
                 >
-                  <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+                  <ArrowLeft
+                    size={18}
+                    className="group-hover:-translate-x-1 transition-transform"
+                  />
                   Back to all articles
                 </Link>
 
                 {/* Newsletter CTA */}
-                <div className="p-6 bg-primary text-primary-foreground rounded-2xl">
-                  <h3 className="text-xl font-display font-semibold mb-2">Get Travel Tips</h3>
-                  <p className="text-primary-foreground/80 text-sm mb-4">
-                    Subscribe to our newsletter for weekly travel inspiration and exclusive offers.
-                  </p>
-                  <input 
-                    type="email" 
-                    placeholder="Your email address"
-                    className="w-full px-4 py-3 rounded-lg bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent mb-3"
-                  />
-                  <button className="w-full btn-hero text-xs py-3">
-                    Subscribe
-                  </button>
+                <div className="p-10 bg-primary text-primary-foreground rounded-3xl shadow-2xl relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-accent/10 translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-display font-bold uppercase tracking-tight mb-4">
+                      Get Travel Tips
+                    </h3>
+                    <p className="text-primary-foreground/70 text-sm mb-8 font-medium leading-relaxed">
+                      Subscribe to our newsletter for weekly travel inspiration
+                      and exclusive offers.
+                    </p>
+                    <div className="space-y-4">
+                      <input
+                        type="email"
+                        placeholder="Your email address"
+                        className="w-full px-6 py-4 rounded-2xl bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent font-bold text-xs"
+                      />
+                      <button className="w-full btn-hero text-[10px] font-bold py-4 tracking-widest justify-center">
+                        SUBSCRIBE
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Categories */}
                 <div className="p-6 bg-card rounded-2xl border border-border">
-                  <h3 className="text-lg font-display font-semibold mb-4">Categories</h3>
+                  <h3 className="text-lg font-display font-semibold mb-4">
+                    Categories
+                  </h3>
                   <div className="space-y-2">
-                    {['Destinations', 'Tips', 'Stories', 'Adventure', 'Culture'].map((category) => (
-                      <button 
+                    {[
+                      "Destinations",
+                      "Tips",
+                      "Stories",
+                      "Adventure",
+                      "Culture",
+                    ].map((category) => (
+                      <button
                         key={category}
                         className="block w-full text-left px-4 py-2 rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
                       >
@@ -336,23 +400,27 @@ const BlogDetails: React.FC = () => {
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <section className="section-padding bg-secondary/30">
+        <section className="section-padding bg-secondary/30 w-full">
           <div className="container-custom">
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center justify-between mb-16">
               <div>
-                <span className="badge-accent mb-3 inline-block">Keep Reading</span>
-                <h2 className="text-headline">Related Articles</h2>
+                <span className="badge-accent mb-4 inline-block font-bold px-4 py-1.5 text-[10px] uppercase tracking-widest border border-accent/20">
+                  KEEP READING
+                </span>
+                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tight">
+                  Related Articles
+                </h2>
               </div>
-              <Link 
-                to="/blog" 
-                className="hidden sm:flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
+              <Link
+                to="/blog"
+                className="hidden sm:flex items-center gap-3 text-accent hover:text-accent/80 transition-all font-bold text-[10px] uppercase tracking-[0.2em]"
               >
-                View All
-                <ChevronRight size={18} />
+                VIEW ALL
+                <ChevronRight size={18} className="translate-y-[-1px]" />
               </Link>
             </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
               {relatedPosts.map((relatedPost) => (
                 <BlogCard key={relatedPost.id} post={relatedPost} />
               ))}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import HamburgerMenu from "./HamburgerMenu";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavItem {
   label: string;
@@ -10,13 +11,13 @@ interface NavItem {
 }
 
 const navigation: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Destinations", href: "/destinations" },
-  { label: "Experiences", href: "/experiences" },
-  { label: "Trip Planner", href: "/trip-planner" },
-  { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "HOME", href: "/" },
+  { label: "DESTINATIONS", href: "/destinations" },
+  { label: "EXPERIENCES", href: "/experiences" },
+  { label: "TRIP PLANNER", href: "/trip-planner" },
+  { label: "BLOG", href: "/blog" },
+  { label: "ABOUT", href: "/about" },
+  { label: "CONTACT", href: "/contact" },
 ];
 
 const Header: React.FC = () => {
@@ -162,6 +163,7 @@ const Header: React.FC = () => {
               >
                 MY TRIPS
               </Link>
+              <ThemeToggle />
             </div>
 
             {/* Mobile Menu Button */}
@@ -195,11 +197,14 @@ const Header: React.FC = () => {
             {/* Menu Header */}
             <div className="flex items-center justify-between p-6 border-b border-border">
               <span className="text-xl font-display font-semibold">Menu</span>
-              <HamburgerMenu
-                isOpen={true}
-                onClick={handleCloseMenu}
-                isScrolled={true}
-              />
+              <div className="flex items-center gap-4">
+                <ThemeToggle />
+                <HamburgerMenu
+                  isOpen={true}
+                  onClick={handleCloseMenu}
+                  isScrolled={true}
+                />
+              </div>
             </div>
 
             {/* Navigation Links */}
@@ -224,7 +229,7 @@ const Header: React.FC = () => {
             <div className="p-6 border-t border-border">
               <Link
                 to="/dashboard"
-                className="nav-item btn-hero w-full justify-center text-sm"
+                className="nav-item btn-hero w-full justify-center text-[10px] font-bold uppercase tracking-widest"
               >
                 My Trips
               </Link>

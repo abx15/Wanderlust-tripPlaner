@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,7 +11,7 @@ interface VideoHeroProps {
   description?: string;
   videoSrc?: string;
   imageSrc: string;
-  height?: 'small' | 'medium' | 'large';
+  height?: "small" | "medium" | "large";
 }
 
 const VideoHero: React.FC<VideoHeroProps> = ({
@@ -21,15 +21,15 @@ const VideoHero: React.FC<VideoHeroProps> = ({
   description,
   videoSrc,
   imageSrc,
-  height = 'medium',
+  height = "medium",
 }) => {
   const heroRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const heightClasses = {
-    small: 'h-[40vh] min-h-[350px]',
-    medium: 'h-[50vh] min-h-[400px]',
-    large: 'h-[60vh] min-h-[450px]',
+    small: "h-[50vh] min-h-[400px]",
+    medium: "h-[60vh] min-h-[500px]",
+    large: "h-[75vh] min-h-[600px]",
   };
 
   useEffect(() => {
@@ -39,21 +39,28 @@ const VideoHero: React.FC<VideoHeroProps> = ({
 
     // Animate content
     gsap.fromTo(
-      content.querySelectorAll('.hero-animate'),
+      content.querySelectorAll(".hero-animate"),
       { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out', delay: 0.2 }
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "power4.out",
+        delay: 0.3,
+      }
     );
 
     // Parallax effect
-    const media = hero.querySelector('.hero-media');
+    const media = hero.querySelector(".hero-media");
     if (media) {
       gsap.to(media, {
-        yPercent: 25,
-        ease: 'none',
+        yPercent: 30,
+        ease: "none",
         scrollTrigger: {
           trigger: hero,
-          start: 'top top',
-          end: 'bottom top',
+          start: "top top",
+          end: "bottom top",
           scrub: true,
         },
       });
@@ -61,7 +68,10 @@ const VideoHero: React.FC<VideoHeroProps> = ({
   }, []);
 
   return (
-    <section ref={heroRef} className={`relative ${heightClasses[height]} flex items-center overflow-hidden`}>
+    <section
+      ref={heroRef}
+      className={`relative ${heightClasses[height]} flex items-center overflow-hidden w-full`}
+    >
       <div className="absolute inset-0">
         {videoSrc ? (
           <video
@@ -69,7 +79,7 @@ const VideoHero: React.FC<VideoHeroProps> = ({
             loop
             muted
             playsInline
-            className="hero-media absolute inset-0 w-full h-[130%] object-cover"
+            className="hero-media absolute inset-0 w-full h-[120%] object-cover"
             poster={imageSrc}
           >
             <source src={videoSrc} type="video/mp4" />
@@ -78,22 +88,30 @@ const VideoHero: React.FC<VideoHeroProps> = ({
           <img
             src={imageSrc}
             alt=""
-            className="hero-media absolute inset-0 w-full h-[130%] object-cover"
+            className="hero-media absolute inset-0 w-full h-[120%] object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent" />
       </div>
-      
+
       <div ref={contentRef} className="container-custom relative z-10">
         {badge && (
-          <span className="badge-accent mb-4 inline-block hero-animate">{badge}</span>
+          <span className="badge-accent mb-6 inline-block hero-animate font-bold px-4 py-1.5 text-[10px] uppercase tracking-widest border border-primary-foreground/20">
+            {badge.toUpperCase()}
+          </span>
         )}
         {subtitle && (
-          <p className="text-sm uppercase tracking-widest text-primary-foreground/70 mb-2 hero-animate">{subtitle}</p>
+          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-primary-foreground/60 mb-3 hero-animate">
+            {subtitle}
+          </p>
         )}
-        <h1 className="text-display text-primary-foreground mb-4 hero-animate">{title}</h1>
+        <h1 className="text-display md:text-7xl font-bold text-primary-foreground mb-6 hero-animate uppercase tracking-tighter leading-[1.1]">
+          {title}
+        </h1>
         {description && (
-          <p className="text-xl text-primary-foreground/80 max-w-2xl hero-animate">{description}</p>
+          <p className="text-xl md:text-2xl text-primary-foreground/80 max-w-2xl hero-animate font-medium leading-relaxed">
+            {description}
+          </p>
         )}
       </div>
     </section>

@@ -139,7 +139,7 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-3">
               {footerLinks.destinations.map((link) => (
-                <li key={link.href}>
+                <li key={`${link.label}-${link.href}`}>
                   <Link
                     to={link.href}
                     className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-1 group"
@@ -162,7 +162,7 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
-                <li key={link.href}>
+                <li key={`${link.label}-${link.href}`}>
                   <Link
                     to={link.href}
                     className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-1 group"
@@ -185,7 +185,7 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
-                <li key={link.href}>
+                <li key={`${link.label}-${link.href}`}>
                   <Link
                     to={link.href}
                     className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-1 group"
