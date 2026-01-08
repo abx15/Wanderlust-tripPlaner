@@ -149,4 +149,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <div className="flex flex-col items-center gap-2 text-primary-foreground/60">
           <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-6 h-10 rounded-full border-2 border-primary-foreground/30 flex items-start j
+          <div className="w-6 h-10 rounded-full border-2 border-primary-foreground/30 flex items-start justify-center p-2">
+            <div className="w-1 h-2 bg-primary-foreground/60 rounded-full animate-bounce" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;

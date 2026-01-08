@@ -90,8 +90,6 @@
     --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
   }
 }
-  }
-}
 
 @layer base {
   * {
@@ -107,13 +105,19 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Outfit', sans-serif;
     @apply font-semibold tracking-tight;
   }
 }
 
 @layer components {
+
   /* Hero Button Variant */
   .btn-hero {
     @apply inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-medium tracking-wide uppercase;
@@ -271,6 +275,7 @@
 }
 
 @layer utilities {
+
   /* Custom Scrollbar */
   .scrollbar-hide {
     -ms-overflow-style: none;

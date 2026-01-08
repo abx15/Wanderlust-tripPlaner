@@ -1,9 +1,9 @@
-import React from 'react';
-import MainLayout from '@/layouts/MainLayout';
-import VideoHero from '@/components/VideoHero';
-import BlogCard from '@/components/BlogCard';
-import { blogPosts } from '@/data';
-import heroBlogImage from '@/assets/hero-blog.jpg';
+import React from "react";
+import MainLayout from "@/layouts/MainLayout";
+import VideoHero from "@/components/VideoHero";
+import BlogCard from "@/components/BlogCard";
+import { blogPosts } from "@/data";
+import heroBlogImage from "@/assets/hero-blog.jpg";
 
 const Blog: React.FC = () => {
   return (
@@ -16,14 +16,17 @@ const Blog: React.FC = () => {
         height="medium"
       />
 
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-background w-full">
         <div className="container-custom">
           {blogPosts.length > 0 && (
-            <div className="mb-12">
+            <div className="mb-20">
+              <span className="badge-accent mb-6 inline-block font-bold px-4 py-1.5 text-[10px] uppercase tracking-widest border border-accent/20">
+                LATEST STORY
+              </span>
               <BlogCard post={blogPosts[0]} variant="featured" />
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {blogPosts.slice(1).map((post) => (
               <BlogCard key={post.id} post={post} />
             ))}
