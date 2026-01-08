@@ -208,7 +208,7 @@ const Footer: React.FC = () => {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-primary-foreground/60">
-              © 2024 Wanderlust. All rights reserved.
+              © 2026 Wanderlust. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (
